@@ -4,21 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
     <title>HTML 5 Boilerplate</title>
     <style>
-      body {background-color: #eaeaea; font-family: Arial, Helvetica, sans-serif;}
-
+     
     </style>
   </head>
   <body id="body">
-    <div id="pokemons" style="margin: 0 auto; max-width: 900px;"></div>
-    <div style="margin: 0 auto; margin-top: 20px; max-width: 900px; text-align: center;">
-      <h1>All Pokemons</h1></div>
-    <div id="allPokemons" style="margin: 0 auto; margin-top: 20px; max-width: 900px;">
-      <div>
-        <button style="width: 100%; padding: 20px; background-color: aquamarine;
-        color:darkcyan; border: 0; font-weight: bold; font-size: 16px;">Load more</button>
-      </div>
+    <div class="mainWrapper">
+        <h1>All Pokemons</h1>
+        <div id="allPokemons">
+        <div>
+            <button id="button" class="button">Load more</button>
+        </div>
+        </div>
     </div>
     
     <script type="text/javascript">
@@ -29,7 +28,13 @@
           .then(response => response.json())
           .then(data => {
             array.push(
-              {id: id, name: data.name, weight: data.weight, height: data.height, img: data.sprites.front_default}
+              {
+                id: id, 
+                name: data.name, 
+                weight: data.weight, 
+                height: data.height, 
+                img: data.sprites.front_default
+            }
             ); console.log(data)
           })
       }
@@ -44,23 +49,25 @@
         setTimeout(() => {
           const html = newArr.map(pokemon => {
             return (
-              ` <div style="margin-bottom: 20px; width: 150px; float:left; background-color: #fff;
-              border-radius: 10px; margin-right: 10px; display:flex; 
-              flex-direction: column; align-items: center; padding: 10px">
+              ` <div class="pokeContainer">
                   <img src="${pokemon.img}" />
-                  <div style="margin-bottom: 5px; font-weight: bold; text-transform: capitalize;">${pokemon.name}</div>
-                  <div style="font-size:12px">Vægt: ${pokemon.weight}</div>
-                  <div style="font-size:12px">Høje: ${pokemon.height}</div>
+                  <div class="pokeName">${pokemon.name}</div>
+                  <div class="pokeDesc">Vægt: ${pokemon.weight}</div>
+                  <div class="pokeDesc">Høje: ${pokemon.height}</div>
                 </div>
               `
             );
           }).join("");
           document.getElementById("allPokemons").insertAdjacentHTML("afterbegin", html);
-        }, "300")
+        }, "2000")
       }
 
-      showPokemons(20);
+        showPokemons(2000);
+       
 
+     
+
+      document.getElementById("button").addEventListener("click", updatePokemonOnClick);
      
       
 
