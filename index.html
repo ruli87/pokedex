@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HTML 5 Boilerplate</title>
+    <style>
+      body {background-color: #eaeaea; font-family: Arial, Helvetica, sans-serif;}
+
+    </style>
+  </head>
+  <body id="body">
+    <div id="pokemons" style="margin: 0 auto; max-width: 900px;"></div>
+    <div style="margin: 0 auto; margin-top: 20px; max-width: 900px; text-align: center;">
+      <h1>All Pokemons</h1></div>
+    <div id="allPokemons" style="margin: 0 auto; margin-top: 20px; max-width: 900px;">
+      <div>
+        <button style="width: 100%; padding: 20px; background-color: aquamarine;
+        color:darkcyan; border: 0; font-weight: bold; font-size: 16px;">Load more</button>
+      </div>
+    </div>
+    
+    <script type="text/javascript">
+
+      // Get pokemons individually
+      function fetchPokemon(id, array){
+        fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
+          .then(response => response.json())
+          .then(data => {
+            array.push(
+              {id: id, name: data.name, weight: data.weight, height: data.height, img: data.sprites.front_default}
+            ); console.log(data)
+          })
+      }
+      
+      function showPokemons(number) {
+        const newArr = [];
+
+        for (let i = 1; i <= number; i++) {
+          fetchPokemon(i, newArr);  
+        }
+
+        setTimeout(() => {
+          const html = newArr.map(pokemon => {
+            return (
+              ` <div style="margin-bottom: 20px; width: 150px; float:left; background-color: #fff;
+              border-radius: 10px; margin-right: 10px; display:flex; 
+              flex-direction: column; align-items: center; padding: 10px">
+                  <img src="${pokemon.img}" />
+                  <div style="margin-bottom: 5px; font-weight: bold; text-transform: capitalize;">${pokemon.name}</div>
+                  <div style="font-size:12px">Vægt: ${pokemon.weight}</div>
+                  <div style="font-size:12px">Høje: ${pokemon.height}</div>
+                </div>
+              `
+            );
+          }).join("");
+          document.getElementById("allPokemons").insertAdjacentHTML("afterbegin", html);
+        }, "300")
+      }
+
+      showPokemons(20);
+
+     
+      
+
+      
+      
+    
+      
+
+      // Get pokemon list only 
+      /*
+      const data = fetch('https://pokeapi.co/api/v2/pokemon?limit=200')
+        .then(response => response.json())
+        .then(data => {
+          console.log(data.results)
+          const html = data.results.map(pokemon => {
+            return (`
+            <div style="margin-bottom: 20px; border: 1px solid #eaeaea; border-radius: 10px; padding: 20px; background-color: #fff">
+            <div>${pokemon.name}</div>
+            <div><a href="${pokemon.url}" target="_blank">Link</a></div>
+            </div>
+            `);
+          }).join("");
+          document.getElementById("pokemons").insertAdjacentHTML("afterbegin", html)
+        })
+      */
+    </script>
+
+   
+  </body>
+</html>
