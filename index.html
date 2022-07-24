@@ -13,10 +13,13 @@
   <body id="body">
     <div class="mainWrapper">
         <h1>All Pokemons</h1>
+        <div id="loader">Fetching pokemons...</div>
         <div id="allPokemons">
+        <!--
         <div>
             <button id="button" class="button">Load more</button>
         </div>
+        -->
         </div>
     </div>
     
@@ -58,16 +61,14 @@
               `
             );
           }).join("");
-          document.getElementById("allPokemons").insertAdjacentHTML("afterbegin", html);
-        }, "2000")
+            document.getElementById("allPokemons").insertAdjacentHTML("afterend", html);
+            document.getElementById("loader").classList.add("hide");
+        }, "1000")
       }
 
-        showPokemons(2000);
-       
+        showPokemons(1000);
 
-     
-
-      document.getElementById("button").addEventListener("click", updatePokemonOnClick);
+        document.getElementById("button").addEventListener("click", showPokemons(20));
      
       
 
