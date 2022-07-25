@@ -14,7 +14,7 @@
     <div class="mainWrapper">
         <h1>All Pokemons</h1>
         <div id="loader">Fetching pokemons...</div>
-        <div id="allPokemons">
+        <div id="allPokemons" class="allPokemons">
         <!--
         <div>
             <button id="button" class="button">Load more</button>
@@ -26,74 +26,45 @@
     <script type="text/javascript">
 
       // Get pokemons individually
-      function fetchPokemon(id, array){
+      function fetchPokemon(id){
         fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
           .then(response => response.json())
           .then(data => {
-            array.push(
-              {
-                id: id, 
-                name: data.name, 
-                weight: data.weight, 
-                height: data.height, 
-                img: data.sprites.front_default
-            }
-            ); console.log(data)
+            createPokemon(data);
+            console.log(data)
           })
       }
       
       function showPokemons(number) {
-        const newArr = [];
-
         for (let i = 1; i <= number; i++) {
-          fetchPokemon(i, newArr);  
+            fetchPokemon(i);
         }
+      }
 
-        setTimeout(() => {
-          const html = newArr.map(pokemon => {
-            return (
+      function createPokemon(pokemon) {
+        
+        const newPokemon = 
               ` <div class="pokeContainer">
-                  <img src="${pokemon.img}" />
+                  <img src="${pokemon.sprites.front_default}" />
                   <div class="pokeName">${pokemon.name}</div>
                   <div class="pokeDesc">Vægt: ${pokemon.weight}</div>
                   <div class="pokeDesc">Høje: ${pokemon.height}</div>
                 </div>
               `
-            );
-          }).join("");
-            document.getElementById("allPokemons").insertAdjacentHTML("afterend", html);
-            document.getElementById("loader").classList.add("hide");
-        }, "1000")
+        
+        console.log(newPokemon)
+
+        const node = document.createElement("div");
+        node.innerHTML = newPokemon;
+        const clone = node.cloneNode(true);
+        document.getElementById("allPokemons").appendChild(clone);
+        document.getElementById("loader").classList.add("hide");
       }
 
-        showPokemons(1000);
+        showPokemons(3);
 
-        document.getElementById("button").addEventListener("click", showPokemons(20));
-     
-      
-
-      
-      
+        //document.getElementById("button").addEventListener("click", showPokemons(20));
     
-      
-
-      // Get pokemon list only 
-      /*
-      const data = fetch('https://pokeapi.co/api/v2/pokemon?limit=200')
-        .then(response => response.json())
-        .then(data => {
-          console.log(data.results)
-          const html = data.results.map(pokemon => {
-            return (`
-            <div style="margin-bottom: 20px; border: 1px solid #eaeaea; border-radius: 10px; padding: 20px; background-color: #fff">
-            <div>${pokemon.name}</div>
-            <div><a href="${pokemon.url}" target="_blank">Link</a></div>
-            </div>
-            `);
-          }).join("");
-          document.getElementById("pokemons").insertAdjacentHTML("afterbegin", html)
-        })
-      */
     </script>
 
    
