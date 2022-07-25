@@ -145,6 +145,12 @@ ion-icon.close {
 .closePanel :hover {
     cursor: pointer;
 }
+.closePanel ion-icon {
+    transition: transform .2s ease-in-out;
+}
+.closePanel :hover {
+    transform: rotate(90deg);
+}
 /*===================*/
 /* BOB
 /*===================*/
