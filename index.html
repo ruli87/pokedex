@@ -82,11 +82,29 @@
             panel.classList.toggle("hide");
 
             const modalPokemon = `
-            <img src="${pokemon.sprites.front_default}" style="width:192px" />
+                  <img src="${pokemon.sprites.front_default}" style="width:192px" />
                   <div class="pokeDesc">${pokemon.id}</div>
                   <div class="pokeName">${pokemon.name}</div>
                   <div class="pokeDesc">Vægt: ${pokemon.weight}</div>
                   <div class="pokeDesc">Høje: ${pokemon.height}</div>
+                  <div class="pokeDesc">
+                    <p class="pokeTitle">Stats</p>
+                    <div class="flexContainer">
+                      <div class="row row1">
+                        <div>HP: ${pokemon.stats[0].base_stat}</div>
+                        <div>SPEED: ${pokemon.stats[5].base_stat}</div>
+                      </div>  
+                      <div class="row row2">
+                        <div>ATTACK: ${pokemon.stats[1].base_stat}</div>
+                        <div>DEFENCE: ${pokemon.stats[2].base_stat}</div>
+                      </div>
+                      <div class="row row3">
+                        <div>SPECIAL-D: ${pokemon.stats[4].base_stat}</div>
+                        <div>SPECIAL-A: ${pokemon.stats[3].base_stat}</div>
+                        
+                      </div>
+                    </div>
+                  </div>
             `;
             
             modal.innerHTML = modalPokemon;
