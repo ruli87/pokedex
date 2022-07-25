@@ -11,19 +11,28 @@
     </style>
   </head>
   <body id="body">
+    
     <div class="mainWrapper">
+      
         <h1>All Pokemons</h1>
         <div id="loader">Fetching pokemons...</div>
         <div id="allPokemons" class="allPokemons">
+          <div id="panel" class="hide">
+            <div id="modalPokemon">
+            </div>
+            <div id="closePanel" class="closePanel"><ion-icon name="close-outline" /></div>
+          </div>
         <!--
         <div>
             <button id="button" class="button">Load more</button>
         </div>
-        -->
+      -->
         </div>
+        
     </div>
-    
     <script type="text/javascript">
+
+    const pokemonList = [];  
 
       // Get pokemons individually
       function fetchPokemon(id){
@@ -31,7 +40,7 @@
           .then(response => response.json())
           .then(data => {
             createPokemon(data);
-            console.log(data)
+            //console.log(data)
           })
       }
       
@@ -44,29 +53,62 @@
       function createPokemon(pokemon) {
         
         const newPokemon = 
-              ` <div class="pokeContainer">
+              ` 
                   <img src="${pokemon.sprites.front_default}" />
+                  <div class="pokeDesc">${pokemon.id}</div>
                   <div class="pokeName">${pokemon.name}</div>
                   <div class="pokeDesc">Vægt: ${pokemon.weight}</div>
                   <div class="pokeDesc">Høje: ${pokemon.height}</div>
-                </div>
-              `
-        
-        console.log(newPokemon)
+              `;
+       
+        const classId = pokemon.id;
 
         const node = document.createElement("div");
+        node.classList.add("pokeContainer");
+        node.classList.add("bob-on-hover");
+        node.classList.add(classId);
         node.innerHTML = newPokemon;
+          
+        
+
         const clone = node.cloneNode(true);
         document.getElementById("allPokemons").appendChild(clone);
         document.getElementById("loader").classList.add("hide");
+
+        const panel = document.getElementById("panel");
+        const modal = document.getElementById("modalPokemon");
+        
+
+        function viewPokemon() {
+        
+            panel.classList.toggle("hide");
+
+            const modalPokemon = `
+            <div><img src="${pokemon.sprites.front_default}" style="width:192px" /></div>
+            <div>${pokemon.name}</div>
+            `;
+            
+            modal.innerHTML = modalPokemon;
+
+            console.log(pokemon.name)
+          
+        }
+        clone.addEventListener("click", viewPokemon)
       }
 
-        showPokemons(3);
+      function closePanel() {
+        document.getElementById("panel").classList.toggle("hide");
+      }
+      const closeP = document.getElementById("closePanel");
+      console.log(closeP)
+      closeP.addEventListener("click", closePanel)
+        showPokemons(100);
+       
 
-        //document.getElementById("button").addEventListener("click", showPokemons(20));
+        //document.getElementById("button").addEventListener("click", getPokemons);
     
     </script>
-
-   
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
   </body>
 </html>
