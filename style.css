@@ -7,6 +7,23 @@ body {
     sans-serif;
     margin: 0;
 }
+.searchContainer {
+    margin: 0 auto;
+    padding-right: 20px;
+    padding-left: 20px;
+    width: 100%;
+    padding-top: 30px;
+    margin-top: 10px;
+    text-align: center;
+}
+.searchContainer input {
+    border: 1px solid #eaea;
+    border-radius: 8px;
+    height: 40px;
+    width: 100%;
+    max-width: 400px;
+    padding-left: 10px;
+}
 .pokeTitle {
     font-size: 14px;
     font-weight: bold;
@@ -90,12 +107,12 @@ cursor: pointer;
     border-radius: 100px;
     color: #fff;
 }
-.attack {background-color:cornflowerblue;} 
-.defence {background-color:cornflowerblue;} 
-.hp {background-color:darkolivegreen;} 
-.speed {background-color:darkred;} 
-.specialD {background-color:darkslateblue;} 
-.specialA {background-color: darkslateblue;}
+.attack {background-color:#264653;} 
+.defence {background-color:#264653;} 
+.hp {background-color:#2a9d8f;} 
+.speed {background-color:#e76f51;} 
+.specialD {background-color:#e9c46a;} 
+.specialA {background-color: #e9c46a;}
 ion-icon.close {
     color: #fff;
     --ionicon-stroke-width: 64px;
