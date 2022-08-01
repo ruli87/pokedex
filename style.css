@@ -56,12 +56,20 @@ body {
 .pokeDesc {
     font-size:12px
 }
-
+.pokemonSpecies {
+  padding: 10px;
+  background-color:#eaeaea;
+  border-radius: 100px;
+  margin-right: 5px;
+}
 .flexContainer {
     display: flex;
     padding: 20px;
     justify-content: center;
     flex-direction: row;
+}
+.capitalize {
+  text-transform: capitalize;
 }
 .row {
 }
@@ -121,7 +129,7 @@ ion-icon.close {
 
 #panel {
     width: 400px;
-    height: 450px;
+    height: 500px;
     position: fixed;
     margin-left: auto;
     margin-right: auto;

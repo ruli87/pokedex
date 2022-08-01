@@ -13,7 +13,7 @@
   <body id="body">
     <div class="searchContainer">
       <h1>Pokemons</h1>
-      <input type="search" placeholder="Search for pokemon" />      
+      <input id="search" type="search" placeholder="Search for pokemon" />      
     </div>
     <div class="mainWrapper">
         <div id="loader">Fetching pokemons...</div>
@@ -35,7 +35,7 @@
     </div>
     <script type="text/javascript">
 
-    const pokemonList = [];  
+      const allPokemons = [];
 
       // Get pokemons individually
       function fetchPokemon(id){
@@ -54,6 +54,8 @@
       }
 
       function createPokemon(pokemon) {
+
+        allPokemons.push(pokemon.name)
         
         const newPokemon = 
               ` 
@@ -84,6 +86,17 @@
         
             panel.classList.toggle("hide");
 
+            const species = []; 
+            
+            for (let i = 0; i <= pokemon.types.length - 1; i++) {
+              species.push(pokemon.types[i].type.name);
+            }
+
+            const speciesMap = species.map(pokemonSpiecies => (
+              `<div class="pokemonSpecies">${pokemonSpiecies}</div>`
+            )).join("")
+            
+
             const modalPokemon = `
                   <img src="${pokemon.sprites.front_default}" style="width:192px" />
                   <div class="pokeDesc">${pokemon.id}</div>
@@ -106,12 +119,11 @@
                         <div class="specialD att">SPECIAL-D: <strong>${pokemon.stats[4].base_stat}</strong></div>
                       </div>
                     </div>
+                    <div class="flexContainer capitalize" style="padding-top: 0 !important">${speciesMap}</div>
                   </div>
             `;
             
             modal.innerHTML = modalPokemon;
-
-            console.log(pokemon.name)
           
         }
         clone.addEventListener("click", viewPokemon)
@@ -124,8 +136,10 @@
       console.log(closeP)
       closeP.addEventListener("click", closePanel)
       
-      
       showPokemons(500);
+
+      /* Pokemon Search */
+      
        
 
         //document.getElementById("button").addEventListener("click", getPokemons);
